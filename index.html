@@ -63,6 +63,10 @@
             .then(response => {
                 console.log("✅ تم إرسال البيانات بنجاح!");
                 alert("تم إرسال البيانات بنجاح!");
+
+                // ✅ إعادة التوجيه إلى صفحة العرض بعد التسجيل
+                window.location.href = "https://docs.google.com/forms/d/e/1FAIpQLSdtRTX5oZYK9C8_uW8_39rK7ujFfQ3naxGaWQmAiKl3sf5RZw/viewform";
+
                 document.getElementById("myForm").reset(); // مسح البيانات بعد الإرسال
             })
             .catch(error => {
