@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل بيانات الزوار</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+        form {
+            display: inline-block;
+            text-align: right;
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        input, button {
+            display: block;
+            margin: 10px auto;
+            padding: 10px;
+            width: 250px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: green;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>تسجيل بيانات الزوار</h2>
+    <form id="myForm">
+        <input type="text" name="name" placeholder="اسمك" required>
+        <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+        <input type="text" name="phone" placeholder="رقم الهاتف" required>
+        <button type="submit">إرسال</button>
+    </form>
+
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            var formData = new FormData(this);
+            var jsonData = {};
+            formData.forEach((value, key) => jsonData[key] = value);
+
+            console.log("🚀 إرسال البيانات:", jsonData);
+
+            fetch("https://script.google.com/macros/s/AKfycbwRTAF-AWL3CQ0pLtK6kJbi7Bu6CZ85FriDRoL40svLcNN-i6EhngeS7vhWU4o-Q4raOg/exec", { 
+                method: "POST",
+                mode: "no-cors",  // ✅ لحل مشكلة CORS
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(jsonData)
+            })
+            .then(response => {
+                console.log("✅ تم إرسال البيانات بنجاح!");
+                alert("تم إرسال البيانات بنجاح!");
+                document.getElementById("myForm").reset(); // مسح البيانات بعد الإرسال
+            })
+            .catch(error => {
+                console.error("❌ خطأ في الإرسال:", error);
+                alert("حدث خطأ، حاول مرة أخرى!");
+            });
+        });
+    </script>
+
+</body>
+</html>
